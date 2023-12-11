@@ -131,7 +131,7 @@ class StackList {
 	}
 }
 
-public class Maze {
+public class MazeModel {
 
 	static Offsets[] moves = new Offsets[8]; // static을 선언하는 이유를 알아야 한다.
 

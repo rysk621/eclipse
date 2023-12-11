@@ -1,6 +1,6 @@
 package ch05재귀함수;
 
-public class MazeNoBackTrackRec {
+public class MazeNoWall {
 	static Moves[] move = new Moves[8];
 	
 	private static void path(int[][] maze, int[][] mark, int row, int col) {

@@ -63,7 +63,7 @@ class FruitPriceComparator implements Comparator<Fruit3> {
 			}
 		}
 		return result;
-		}
+	}
 }
 
 public class ComparatorInstanceArrBinSearch {
