@@ -60,11 +60,14 @@ public class MergeSortPolynomial {
 		for (i = left; i <= center; i++) {
 			a[n++] = x[i];
 		}
-		
-		while(i<=right && m < n) {
+//		i == center+1;
+//		while (center+1 <= right && a cursor(m) < a capacity(n, which is center-left+1))
+		while (i <= right && m < n) {
+//			a(0~center)의 요소와 x(center+1~right)의 요소 비교, 선순위인 요소를 x(0~center)에 넣는다.
 			x[k++] = (a[m].compareTo(x[i]) <= 0) ? a[m++] : x[i++];
 		}
-		
+
+//		center+1 > right 이면서 a cursor < a capacity 인 경우. x(center+1~x.length)를 a의 요소로 채운다.
 		while(m < n) {
 			x[k++] = a[m++];
 		}
@@ -83,7 +86,7 @@ public class MergeSortPolynomial {
 	public static void main(String[] args) {
 		Polynomial[] x = {
 		         new Polynomial(1.5, 3),
-		         new Polynomial(2.5, 6),
+		         new Polynomial(2.5, 7),
 		         new Polynomial(3.3, 2),
 		         new Polynomial(4.0, 1),
 		         new Polynomial(2.2, 0),
@@ -102,32 +105,46 @@ public class MergeSortPolynomial {
 		int nx = x.length;
 
 		System.out.println("=".repeat(10)+"x, raw array"+"=".repeat(10));
-		ShowPolynomial(x);
+		ShowPolynomial("정렬전 x  = ",x);
 		System.out.println("=".repeat(10)+"y, raw array"+"=".repeat(10));
-		ShowPolynomial(y);
+		ShowPolynomial("정렬전 x  = ",y);
 		MergeSort(x, 0, x.length - 1); // 배열 x를 정렬
 		MergeSort(y, 0, y.length - 1); // 배열 y를 정렬
 		System.out.println("=".repeat(10)+"x, mergeSorted array"+"=".repeat(10));
-		ShowPolynomial(x);
+		ShowPolynomial("다항식 x =", x);
 		System.out.println("=".repeat(10)+"y, mergeSorted array"+"=".repeat(10));
-		ShowPolynomial(y);
-		Polynomial[] z = new Polynomial[nx];
-		AddPolynomial(x,y,z);//다항식 덧셈 z = x + y
-		ShowPolynomial(z);
-//		MultiplyPolynomial(x,y,z);//다항식 곱셈 z = x * y
+		ShowPolynomial("다항식 y= ", y);
+		Polynomial[] z = new Polynomial[20];
+		AddPolynomial(x,y,z); // 다항식 덧셈 z = x + y
+		ShowPolynomial("다항식 z = x + y", z);
+//		MultiplyPolynomial(x,y,z); // 다항식 곱셈 z = x * y
 //		ShowPolynomial(y);
-//		int result = EvaluatePolynomial(z, 10);//다항식 값 계산 함수 z(10) 값 계산한다 
+//		int result = EvaluatePolynomial(z, 10); // 다항식 값 계산 함수 z(10) 값 계산한다 
 //		System.out.println(" result = " + result );
 	}
 
 	private static void AddPolynomial(Polynomial[] x, Polynomial[] y, Polynomial[] z) {
-		for (int i = 0; i < x.length; i++) {
-			z[i].coef = x[i].coef + y[i].coef;
-			z[i].exp = x[i].exp + y[i].exp;
+		int px = 0, py = 0, pz = 0;
+		while (px < x.length && py < y.length) {
+			if (x[px].exp == y[py].exp) {
+				double tmp = x[px].coef + y[py].coef;
+				z[pz++] = x[px++];
+				z[pz].coef = tmp;
+				py++;
+			} else if (x[px].exp < y[py].exp) {
+				z[pz++] = x[px++];
+			} else {
+				z[pz++] = y[py++];
+			}
 		}
 	}
 
-	private static void ShowPolynomial(Polynomial[] x) {
-		for(Polynomial a : x) System.out.println(a.toString());
+	private static void ShowPolynomial(String str, Polynomial[] x) {
+		System.out.println("\n" + str);
+		for(Polynomial a : x) {
+			System.out.print(a.coef+"x**" +a.exp+" + ");
+		}
+			
+		System.out.println();
 	}
 }

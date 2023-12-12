@@ -52,15 +52,15 @@ public class MergeSort {
 		int p = 0;
 		int j = 0;
 		int k = left;
-//		buff[0]에서부터 from x[left] to x[center] 값을 저장
+//		buff[0]에서부터 buff[center-left]에 x[left]부터 x[center] 값을 저장
 		for (i = left; i <= center; i++) {
 			buff[p++] = x[i];
 		}
-//		i(center)에서 x[right](x 배열의 center index 뒤쪽 절반), j(0)에서 p(center) 사이일 때: buff[j] <= x[i] 비교, 둘 중 작거나 같은 값을 x[left++]에 저장   
+//		i(center+1)에서 x[right](x 배열의 center index 뒤쪽 절반), j(0)에서 p(center-left+1) 사이일 때: buff[j] <= x[i] 비교, 둘 중 작거나 같은 값을 x[left++]에 저장   
 		while (i <= right && j < p) {
 			x[k++] = (buff[j] <= x[i]) ? buff[j++] : x[i++];
 		}
-//		i가 right보다 클 경우(배열 x에 buff와 비교할 수 있는 요소 남지 않았을 경우) x[k++]에는 buff[j++]를 저장
+//		i가 right보다 클 경우(배열 x에 buff와 비교할 수 있는 요소 남지 않았을 경우) x[k++]에는 buff[j++]를 저장 (x[right]까지 저장했고 buff 배열에는 요소가 남아있음.)
 		while (j < p) x[k++] = buff[j++];
 	}
 }
