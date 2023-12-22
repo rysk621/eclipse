@@ -33,7 +33,7 @@ class Heap implements MaxHeap {
 
 	@Override
 	public int deleteMax() {
-
+		return 0; //작성해야함
 	}
 
 	private void heapEmpty() {

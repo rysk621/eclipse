@@ -1,4 +1,4 @@
-package Chap4_스택과큐;
+package ch4_스택과큐;
 
 /*
  * 교재에 있는 소스코드
